@@ -1,0 +1,49 @@
+.block_content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px 17px;
+}
+
+.image {
+  width: 201px;
+  height: 201px;
+  border-radius: 50%;
+}
+
+.link_name {
+  font-size: 22px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: none;
+  text-transform: capitalize;
+  letter-spacing: 0.3px;
+  color: #222;
+  text-decoration: none;
+  font-family: "Marcellus", sans-serif;
+}
+
+.shop_link {
+  opacity: 0;
+  visibility: hidden;
+  font-size: 14px;
+  color: rgb(34, 34, 34);
+  font-weight: 500;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: opacity 0.3s ease-in, visibility 0.3s ease-in;
+  font-family: "Mulish", sans-serif;
+  line-height: 26px;
+}
+
+.shop_link:hover{
+  text-decoration: underline;
+}
+
+.shop_container:hover .shop_link {
+  opacity: 1;
+  visibility: visible;
+}

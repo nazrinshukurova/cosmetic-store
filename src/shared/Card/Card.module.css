@@ -1,0 +1,40 @@
+.card {
+  position: relative;
+  padding-top: 70px;
+}
+
+.caption {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  bottom: 50px;
+  left: 50px;
+}
+
+.heading {
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #222;
+  text-align: left;
+  font-family: "Mulish", sans-serif;
+  line-height: 26px;
+}
+
+.subheading {
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 41px;
+  margin-top: 18px;
+  font-family: "Marcellus", sans-serif;
+}
+
+.subtext {
+  padding-bottom: 33px;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 41px;
+  font-family: "Marcellus", sans-serif;
+}

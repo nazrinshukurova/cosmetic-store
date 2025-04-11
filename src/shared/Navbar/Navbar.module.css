@@ -1,0 +1,68 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 0px;
+  font-family: "Mulish", sans-serif;
+}
+
+.navbar_right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  margin: 0px 52px;
+}
+
+.navlinks {
+  display: flex;
+  list-style: none;
+}
+
+.link {
+  padding: 14px 15px;
+  font-weight: 500;
+  line-height: 22px;
+  color: #222;
+  display: block;
+  text-transform: uppercase;
+  position: relative;
+  width: auto;
+  letter-spacing: 1px;
+  font-size: 14px;
+}
+
+.header_right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  position: relative;
+}
+
+.icon {
+  position: relative;
+  cursor: pointer;
+}
+
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background-color: #636b57;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.totalPrice {
+  font-weight: 700;
+  font-size: 15px;
+  color: #636b57;
+}
