@@ -1,0 +1,54 @@
+.trending_container {
+  margin-top: 100px;
+}
+
+.title {
+  font-family: "Marcellus", sans-serif;
+  display: block;
+  width: auto;
+  margin: 0 auto 20px;
+  position: relative;
+  text-align: center;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 40px;
+  text-transform: capitalize !important;
+  letter-spacing: 0;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.clearfix {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  list-style: none;
+  margin-bottom: 30px;
+}
+
+.nav_item {
+  text-decoration: none;
+}
+
+.nav_link {
+  color: #222;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 14px;
+  position: relative;
+  border: 0;
+  padding: 6px 27px;
+  font-family: "Mulish", sans-serif;
+  letter-spacing: 0.5px;
+  line-height: 26px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+}
+
+.nav_link:hover {
+  background-color: #636b57;
+  color: #ffffff;
+  text-decoration: underline;
+}

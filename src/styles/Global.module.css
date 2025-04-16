@@ -1,0 +1,47 @@
+.main_title {
+  line-height: 40px;
+  font-weight: 400;
+  font-size: 35px;
+  float: none;
+  text-transform: capitalize;
+  margin: 0;
+  color: #222;
+  margin-bottom: 6px;
+  font-family: "Marcellus", sans-serif;
+  text-align: center;
+}
+
+.sub_navbar_link {
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: #666;
+  line-height: 26px;
+  font-size: 15px;
+  font-family: "Mulish", sans-serif;
+  a {
+    color: #222;
+    text-decoration: none;
+  }
+}
+
+.sub_navbar_link_last {
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: #666;
+  line-height: 26px;
+  font-size: 15px;
+  font-family: "Mulish", sans-serif;
+  a {
+    color: #222;
+    text-decoration: none;
+  }
+}
+
+.sub_navbar_link_last::after {
+  margin: 0.3125em;
+}
+
+.sub_navbar_link::after {
+  content: "/";
+  margin: 0.3125em;
+}

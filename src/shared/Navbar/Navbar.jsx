@@ -2,20 +2,36 @@ import React from "react";
 import logo from "../../assets/logo-1692272836.jpg";
 import { FaSearch, FaUserAlt, FaHeart, FaShoppingCart } from "react-icons/fa";
 import styles from "./Navbar.module.css";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div>
+    <header>
       <nav className={styles.navbar}>
         <div>
-          <img className={styles.logo} src={logo}></img>
+          <img className={styles.logo} src={logo} alt="" />
         </div>
         <div className={styles.navbar_right}>
-          {" "}
           <div className={styles.header_left}>
             <ul className={styles.navlinks}>
-              <li className={styles.link}>Makeup</li>
-              <li className={styles.link}>Eyeliner</li>
+              <li className={styles.link}>
+                <Link
+                  to="/"
+                  style={{ textDecoration: "none", color: " #222" }}
+                  className={styles.navlink}
+                >
+                  Makeup
+                </Link>
+              </li>
+              <li className={styles.link}>
+                <Link
+                  style={{ textDecoration: "none", color: " #222" }}
+                  to="/eyeliner"
+                  className={styles.navlink}
+                >
+                  Eyeliner
+                </Link>
+              </li>
               <li className={styles.link}>StainLip</li>
               <li className={styles.link}>ALL BRANDS</li>
               <li className={styles.link}>MORE</li>
@@ -40,7 +56,7 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-    </div>
+    </header>
   );
 };
 

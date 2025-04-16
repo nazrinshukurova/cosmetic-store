@@ -51,13 +51,31 @@ const ImageSlider = () => {
       ))}
       <div className={styles.controls}>
         <button
+          style={{
+            height: "60px",
+            width: "60px",
+            borderRadius: "50%",
+            color: "#222",
+            backgroundColor: "transparent",
+            border: " 1px solid rgba(104, 79, 79, .2)",
+          }}
           onClick={() =>
             setCurrent((current - 1 + images.length) % images.length)
           }
         >
           &lt;
         </button>
-        <button onClick={() => setCurrent((current + 1) % images.length)}>
+        <button
+          style={{
+            height: "60px",
+            width: "60px",
+            borderRadius: "50%",
+            color: "#222",
+            backgroundColor: "transparent",
+            border: " 1px solid rgba(104, 79, 79, .2)",
+          }}
+          onClick={() => setCurrent((current + 1) % images.length)}
+        >
           &gt;
         </button>
       </div>

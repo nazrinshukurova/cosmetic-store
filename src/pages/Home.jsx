@@ -4,10 +4,13 @@ import TopCategories from "../components/HomeComponents/TopCategories/TopCategor
 import Card from "../shared/Card/Card";
 import subbanner_1 from "../assets/sub-banner-1.jpg";
 import subbanner_2 from "../assets/sub-banner-2.jpg";
+import TrendingProducts from "../components/TrendingProducts/TrendingProducts";
+import Navbar from "../shared/Navbar/Navbar";
 
 const Home = () => {
   return (
     <div>
+      <Navbar />
       <ImageSlider />
       <TopCategories />
       <div className="cards">
@@ -26,6 +29,7 @@ const Home = () => {
 "
         />
       </div>
+      <TrendingProducts />
     </div>
   );
 };
