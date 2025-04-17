@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { supabase } from "../../client";
 import styles from "./ProductBox.module.css";
+import { Heart, Repeat, Maximize2, ExternalLink } from "lucide-react";
 
 const ProductList = ({ filters }) => {
   const [products, setProducts] = useState([]);
@@ -56,7 +57,6 @@ const ProductList = ({ filters }) => {
       const matchedPrice = prices.find((price) => price.key === product.key);
       if (!matchedPrice) return null;
 
-      // ✅ Parse all size prices safely
       const sizePrices = {
         Small:
           matchedPrice.smallPrice != null
@@ -128,48 +128,60 @@ const ProductList = ({ filters }) => {
   return (
     <div>
       <div className={styles.filtered_items}>
-        {mergedProducts.length === 0 ? (
-          <p className={styles.no_items}>
-            No products found for selected filters.
-          </p>
-        ) : (
-          mergedProducts.map((product) => (
-            <div key={product.id} className={styles.item}>
-              {product.isDiscount && (
-                <div className={styles.discount_tag}>
-                  -%{product.discountPercent}
-                </div>
-              )}
-              <img
-                className={styles.item_image}
-                src={product.images}
-                alt={product.name}
-              />
-
-              <div className={styles.brand_title}>{product.brand}</div>
-              <h3 className={styles.name}>
-                {product.name}
-                <div className={styles.prices_box}>
-                  <span className={styles.price}>
-                    {typeof product.price === "number"
-                      ? ` $${product.price.toFixed(1)}`
-                      : "Price: N/A"}
-                  </span>
-                  {product.isDiscount &&
-                    typeof product.basePrice === "number" && (
-                      <span className={styles.basePrice}>
-                        ${product.basePrice.toFixed(1)}
-                      </span>
-                    )}
-                </div>
-
-                {!product.isAvailable && (
-                  <span className={styles.out_of_stock}>Out of stock</span>
-                )}
-              </h3>
+        {mergedProducts.map((product) => (
+          <div key={product.id} className={styles.item}>
+            {product.isDiscount && (
+              <div className={styles.discount_tag}>
+                -%{product.discountPercent}
+              </div>
+            )}
+            <img
+              className={styles.item_image}
+              src={product.images}
+              alt={product.name}
+            />
+            <div className={styles.stack}>
+              <button className={styles.button}>
+                <Heart />
+                <span className={styles.tooltip}>Like</span>
+              </button>
+              <button className={`${styles.button} ${styles.active}`}>
+                <Repeat />
+                <span className={styles.tooltip}>Repeat</span>
+              </button>
+              <button className={styles.button}>
+                <Maximize2 />
+                <span className={styles.tooltip}>Expand</span>
+              </button>
+              <button className={styles.button}>
+                <ExternalLink />
+                <span className={styles.tooltip}>Open</span>
+              </button>
             </div>
-          ))
-        )}
+
+            <div className={styles.brand_title}>{product.brand}</div>
+            <h3 className={styles.name}>
+              {product.name}
+              <div className={styles.prices_box}>
+                {product.isDiscount &&
+                  typeof product.basePrice === "number" && (
+                    <span className={styles.basePrice}>
+                      ${product.basePrice.toFixed(1)}
+                    </span>
+                  )}
+                <span className={styles.price}>
+                  {typeof product.price === "number"
+                    ? ` $${product.price.toFixed(1)}`
+                    : "Price: N/A"}
+                </span>
+              </div>
+
+              {!product.isAvailable && (
+                <span className={styles.out_of_stock}>Out of stock</span>
+              )}
+            </h3>
+          </div>
+        ))}
       </div>
     </div>
   );

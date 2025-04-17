@@ -7,7 +7,6 @@ const Eyeliner = () => {
   return (
     <div>
       <EyelinerComponent />
-      {/* <BlockCategories /> */}
       <FilterSidebar />
     </div>
   );

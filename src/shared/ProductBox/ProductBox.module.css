@@ -3,6 +3,28 @@
   flex-wrap: wrap;
 }
 
+/* Make the stack box hidden initially */
+.stack {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  padding: 16px;
+  /* z-index: 9999; */
+  right: 10px;
+  top: 30px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.item:hover .stack {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .item {
   position: relative;
   padding: 16px;
@@ -81,4 +103,64 @@
   font-size: 17px;
   line-height: 20px;
   color: #636b57;
+}
+
+.button {
+  background-color: white;
+  border: none;
+  border-radius: 50%;
+  height: 38px;
+  width: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.5s ease;
+  position: relative;
+}
+
+.button svg {
+  stroke: #000;
+  transition: stroke 0.2s ease;
+  width: 19px;
+  height: 19px;
+}
+
+.button:hover {
+  background-color: #5c6650;
+}
+
+.button:hover svg {
+  stroke: #fff;
+  cursor: pointer;
+}
+
+.active {
+  background-color: #5c6650;
+}
+
+.active svg {
+  stroke: #fff;
+}
+
+.tooltip {
+  position: absolute;
+  top: -28px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  /* z-index: 1; */
+}
+
+.button:hover .tooltip {
+  opacity: 1;
+  transform: translateY(0);
 }
