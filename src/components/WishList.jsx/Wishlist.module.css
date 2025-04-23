@@ -1,0 +1,126 @@
+* {
+  font-size: 15px;
+  font-family: "Mulish", sans-serif;
+}
+
+.full_container {
+  width: 100%;
+}
+
+.wishlist_container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 50px;
+  gap: 20px;
+}
+
+.product_image {
+  width: 258.31px;
+  height: 301.08px;
+}
+
+.description_box {
+  margin-top: 16px;
+}
+
+.remove_button {
+  outline: none;
+  border: none;
+  margin-bottom: 17px;
+}
+
+.wishlist {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e5e5e5;
+  padding: 10px;
+  text-align: center;
+  background: #fff;
+  margin-left: -1px;
+  margin-bottom: 40px;
+  width: 20%;
+  position: relative;
+  font-weight: 400;
+  height: 430px;
+}
+
+.description {
+  font-size: 13px;
+  font-weight: 400;
+  color: #222222;
+}
+
+.prices_box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.basePrice {
+  display: inline-block;
+  text-decoration: line-through;
+  font-size: 13px;
+  vertical-align: top;
+  padding-right: 5px;
+  color: #666;
+  font-weight: 400;
+}
+
+.price {
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 20px;
+  color: #636b57;
+}
+
+.out_of_stock {
+  color: #e22d2d;
+  font-size: 13px;
+}
+
+.trash {
+  font-family: "Material Icons";
+  font-weight: 400;
+  font-style: normal;
+  display: inline-block;
+  vertical-align: middle;
+  width: 15px;
+  height: 15px;
+  line-height: 1;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
+
+.addToCartBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addToCart {
+  font-size: 12px;
+  width: 150px;
+  height: 30px;
+  background-color: #636b57;
+  border: none;
+  color: white;
+  text-transform: uppercase;
+  font-family: "Mulish", sans-serif;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #d3d3d3; /* Arxa fon rəngi */
+  color: #888; /* Mətnin rəngi */
+  border: 1px solid #ccc; /* Sərhədin rəngi */
+  cursor: not-allowed; /* Mouse kursoru */
+}

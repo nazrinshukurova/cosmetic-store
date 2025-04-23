@@ -1,0 +1,154 @@
+.card_container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px;
+  background-color: #fff;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 100000000;
+  transition: transform 0.3s ease-in-out;
+  height: 100vh; /* Make the card container full height */
+  display: flex;
+  flex-direction: column;
+}
+
+.basket_container {
+  position: relative;
+}
+
+.onClose {
+  background-color: transparent;
+  border: none;
+  float: right;
+}
+
+.full_container {
+  padding: 20px;
+}
+
+.show {
+  display: block;
+}
+
+.close {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.wishlist_container {
+  margin-top: 40px;
+  overflow-y: auto;
+  max-height: calc(100vh - 200px); /* Adjust the height to allow space for the bottom information */
+}
+
+.wishlist {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.product_image {
+  width: 105px;
+  height: 90px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.description_box {
+  flex-grow: 1;
+  line-height: 18px;
+}
+
+.description {
+  margin-bottom: 5px;
+  font-size: 13px;
+  font-family: "Mulish", sans-serif;
+  color: #222222;
+  margin-bottom: 20px;
+
+}
+
+.prices_box {
+  margin-top: 5px;
+}
+
+.price {
+  color: green;
+}
+
+.out_of_stock {
+  color: red;
+  font-size: 12px;
+}
+
+.top_block_cart {
+  display: flex;
+  gap: 150px;
+  justify-content: space-around;
+}
+
+.toggle_title {
+  float: left;
+  width: auto;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #222;
+  text-transform: capitalize;
+  font-family: "Marcellus", sans-serif;
+}
+
+.delete_btn {
+  display: flex;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border: none;
+}
+
+.qty_btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.quantity_controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.qty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.information_1 {
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.totalPrice {
+  color: #636b57;
+  font-weight: 700;
+  font-family: "Mulish", sans-serif;
+}
+
+.information_2 {
+  padding: 5px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto; /* Push it to the bottom */
+}
+
+.taxes {
+  color: #636b57;
+  font-weight: 700;
+  font-family: "Mulish", sans-serif;
+}

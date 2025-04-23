@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { supabase } from "../../client";
 import styles from "./ProductBox.module.css";
-import { Heart, Repeat, Maximize2, ExternalLink } from "lucide-react";
+import { Heart, Repeat, Maximize2, ExternalLink, X } from "lucide-react";
 import { useWishlist } from "../../context/WishlistContext";
+import { useCart } from "../../context/AddToCard";
 
-const ProductList = ({ filters, productProps }) => {
+const ProductList = ({ filters }) => {
   const [products, setProducts] = useState([]);
   const [prices, setPrices] = useState([]);
+  const [expandedImage, setExpandedImage] = useState(null);
   const { availability, condition, brand, size } = filters;
 
   const { addToWishlist } = useWishlist();
+  const { addToCart } = useCart();
 
   useEffect(() => {
     const fetchFilteredProducts = async () => {
@@ -104,7 +107,6 @@ const ProductList = ({ filters, productProps }) => {
             if (firstAvailableSize) {
               showSize = firstAvailableSize;
               basePrice = sizePrices[firstAvailableSize];
-
               finalPrice = isDiscount
                 ? calcDiscountedPrice(discountPercent, basePrice)
                 : basePrice;
@@ -124,8 +126,36 @@ const ProductList = ({ filters, productProps }) => {
       .filter(Boolean);
   }, [products, prices, size]);
 
+  const handleExpand = (imageUrl) => {
+    setExpandedImage(imageUrl);
+  };
+
+  const closeExpanded = () => {
+    setExpandedImage(null);
+  };
+
   return (
     <div>
+      {expandedImage && (
+        <div className={styles.overlay} onClick={closeExpanded}>
+          <div
+            className={styles.expandedContainer}
+            onClick={(e) => e.stopPropagation()}
+
+            //&Deep Note:Əgər bu olmasa, istifadəçi bu konteynerin içini klikləyəndə modalın overlay-inə də klik gedər və modal bağlanardı.Bu funksiya klik hadisəsinin daha yuxarıdakı parent elementlərə getməsinin qarşısını alır.
+          >
+            <button className={styles.closeButton} onClick={closeExpanded}>
+              {/* <X size={24} /> */}
+              <span>×</span>
+            </button>
+            <img
+              src={expandedImage}
+              alt="Expanded"
+              className={styles.expandedImage}
+            />
+          </div>
+        </div>
+      )}
       <div className={styles.filtered_items}>
         {mergedProducts.map((product) => (
           <div key={product.id} className={styles.item}>
@@ -140,15 +170,21 @@ const ProductList = ({ filters, productProps }) => {
               alt={product.name}
             />
             <div className={styles.stack}>
-              <button className={styles.button}>
-                <Heart onClick={() => addToWishlist(product)} />
+              <button
+                className={styles.button}
+                onClick={() => addToWishlist(product)}
+              >
+                <Heart />
                 <span className={styles.tooltip}>Like</span>
               </button>
               <button className={`${styles.button} ${styles.active}`}>
                 <Repeat />
                 <span className={styles.tooltip}>Repeat</span>
               </button>
-              <button className={styles.button}>
+              <button
+                className={styles.button}
+                onClick={() => handleExpand(product.images)}
+              >
                 <Maximize2 />
                 <span className={styles.tooltip}>Expand</span>
               </button>
@@ -157,7 +193,6 @@ const ProductList = ({ filters, productProps }) => {
                 <span className={styles.tooltip}>Open</span>
               </button>
             </div>
-
             <div className={styles.brand_title}>{product.brand}</div>
             <h3 className={styles.name}>
               {product.name}
@@ -173,12 +208,18 @@ const ProductList = ({ filters, productProps }) => {
                     ? ` $${product.price.toFixed(1)}`
                     : "Price: N/A"}
                 </span>
+                {!product.isAvailable && (
+                  <span className={styles.out_of_stock}>Out of stock</span>
+                )}
               </div>
-
-              {!product.isAvailable && (
-                <span className={styles.out_of_stock}>Out of stock</span>
-              )}
             </h3>
+            <button
+              className={styles.addToCart}
+              onClick={() => addToCart(product)}
+              disabled={!product.isAvailable}
+            >
+              Add to cart
+            </button>{" "}
           </div>
         ))}
       </div>

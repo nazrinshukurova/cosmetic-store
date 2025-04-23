@@ -1,9 +1,16 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const WishlistContext = createContext();
 
 export const WishlistProvider = ({ children }) => {
-  const [wishlist, setWishlist] = useState([]);
+  const [wishlist, setWishlist] = useState(() => {
+    const storedWishlist = localStorage.getItem("wishlist");
+    return storedWishlist ? JSON.parse(storedWishlist) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  }, [wishlist]);
 
   const addToWishlist = (product) => {
     if (!wishlist.find((item) => item.id === product.id)) {
@@ -12,10 +19,11 @@ export const WishlistProvider = ({ children }) => {
   };
 
   const removeFromWishlist = (productId) => {
-    setWishlist((prev) => prev.filter((item) => item.id !== productId));
+    setWishlist((prev) => prev.filter((el) => el.id !== productId));
   };
 
-  const countOfwishes = wishlist.length; 
+  const countOfwishes = wishlist.length;
+  console.log(wishlist)
 
   return (
     <WishlistContext.Provider
@@ -27,3 +35,4 @@ export const WishlistProvider = ({ children }) => {
 };
 
 export const useWishlist = () => useContext(WishlistContext);
+
