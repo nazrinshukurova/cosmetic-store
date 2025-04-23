@@ -1,20 +1,20 @@
 import React from "react";
-import Navbar from "./shared/Navbar/Navbar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import { BrowserRouter, Router, Routes, Route } from "react-router-dom";
 import Eyeliner from "./pages/Eyeliner";
+import { WishlistProvider } from "./context/WishlistContext";
+
 
 const App = () => {
   return (
-    <div>
+    <WishlistProvider>
       <BrowserRouter>
-        {/* <Navbar /> */}
         <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/eyeliner" element={<Eyeliner />}></Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/eyeliner" element={<Eyeliner />} />
         </Routes>
       </BrowserRouter>
-    </div>
+    </WishlistProvider>
   );
 };
 

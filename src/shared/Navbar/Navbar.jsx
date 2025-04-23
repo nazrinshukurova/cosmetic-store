@@ -3,13 +3,16 @@ import logo from "../../assets/logo-1692272836.jpg";
 import { FaSearch, FaUserAlt, FaHeart, FaShoppingCart } from "react-icons/fa";
 import styles from "./Navbar.module.css";
 import { Link } from "react-router-dom";
+import { useWishlist } from "../../context/WishlistContext"; // ✅ Import the hook
 
 const Navbar = () => {
+  const { countOfwishes } = useWishlist(); // ✅ Use the hook to get the wishlist count
+
   return (
     <header>
       <nav className={styles.navbar}>
         <div>
-          <img className={styles.logo} src={logo} alt="" />
+          <img className={styles.logo} src={logo} alt="Logo" />
         </div>
         <div className={styles.navbar_right}>
           <div className={styles.header_left}>
@@ -17,7 +20,7 @@ const Navbar = () => {
               <li className={styles.link}>
                 <Link
                   to="/"
-                  style={{ textDecoration: "none", color: " #222" }}
+                  style={{ textDecoration: "none", color: "#222" }}
                   className={styles.navlink}
                 >
                   Makeup
@@ -25,8 +28,8 @@ const Navbar = () => {
               </li>
               <li className={styles.link}>
                 <Link
-                  style={{ textDecoration: "none", color: " #222" }}
                   to="/eyeliner"
+                  style={{ textDecoration: "none", color: "#222" }}
                   className={styles.navlink}
                 >
                   Eyeliner
@@ -46,7 +49,7 @@ const Navbar = () => {
             </div>
             <div className={styles.icon}>
               <FaHeart size={20} />
-              <span className={styles.badge}>0</span>
+              <span className={styles.badge}>{countOfwishes}</span>
             </div>
             <div className={styles.icon}>
               <FaShoppingCart size={20} />

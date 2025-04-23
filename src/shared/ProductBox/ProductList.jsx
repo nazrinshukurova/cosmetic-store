@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { supabase } from "../../client";
 import styles from "./ProductBox.module.css";
 import { Heart, Repeat, Maximize2, ExternalLink } from "lucide-react";
+import { useWishlist } from "../../context/WishlistContext";
 
-const ProductList = ({ filters }) => {
+const ProductList = ({ filters, productProps }) => {
   const [products, setProducts] = useState([]);
   const [prices, setPrices] = useState([]);
   const { availability, condition, brand, size } = filters;
+
+  const { addToWishlist } = useWishlist();
 
   useEffect(() => {
     const fetchFilteredProducts = async () => {
@@ -52,78 +55,74 @@ const ProductList = ({ filters }) => {
     return numericValue - (numericValue / 100) * discount;
   };
 
-  const mergedProducts = products
-    .map((product) => {
-      const matchedPrice = prices.find((price) => price.key === product.key);
-      if (!matchedPrice) return null;
+  const mergedProducts = useMemo(() => {
+    return products
+      .map((product) => {
+        const matchedPrice = prices.find((price) => price.key === product.key);
+        if (!matchedPrice) return null;
 
-      const sizePrices = {
-        Small:
-          matchedPrice.smallPrice != null
+        const sizePrices = {
+          Small: matchedPrice.smallPrice
             ? parseFloat(matchedPrice.smallPrice)
             : null,
-        Medium:
-          matchedPrice.mediumPrice != null
+          Medium: matchedPrice.mediumPrice
             ? parseFloat(matchedPrice.mediumPrice)
             : null,
-        Large:
-          matchedPrice.largePrice != null
+          Large: matchedPrice.largePrice
             ? parseFloat(matchedPrice.largePrice)
             : null,
-        XXL:
-          matchedPrice.xxlPrice != null
-            ? parseFloat(matchedPrice.xxlPrice)
-            : null,
-      };
+          XXL: matchedPrice.xxlPrice ? parseFloat(matchedPrice.xxlPrice) : null,
+        };
 
-      const isDiscount = matchedPrice.isDiscount;
-      const discountPercent = matchedPrice.percent;
+        const isDiscount = matchedPrice.isDiscount;
+        const discountPercent = matchedPrice.percent;
 
-      let finalPrice = "N/A";
-      let showSize = "";
-      let basePrice = "";
+        let finalPrice = "N/A";
+        let showSize = "";
+        let basePrice = "";
 
-      if (size.length) {
-        const selectedSizes = size.filter(
-          (sz) => sizePrices[sz] !== null && sizePrices[sz] !== undefined
-        );
-
-        if (!selectedSizes.length) return null;
-
-        showSize = selectedSizes[0];
-        basePrice = sizePrices[showSize];
-        finalPrice = isDiscount
-          ? calcDiscountedPrice(discountPercent, basePrice)
-          : basePrice;
-      } else {
-        if (matchedPrice.NormalPrice != null) {
-          finalPrice = parseFloat(matchedPrice.NormalPrice);
-          showSize = "Price";
-        } else {
-          const firstAvailableSize = Object.keys(sizePrices).find(
+        if (size.length) {
+          const selectedSizes = size.filter(
             (sz) => sizePrices[sz] !== null && sizePrices[sz] !== undefined
           );
-          if (firstAvailableSize) {
-            showSize = firstAvailableSize;
-            basePrice = sizePrices[firstAvailableSize];
 
-            finalPrice = isDiscount
-              ? calcDiscountedPrice(discountPercent, basePrice)
-              : basePrice;
+          if (!selectedSizes.length) return null;
+
+          showSize = selectedSizes[0];
+          basePrice = sizePrices[showSize];
+          finalPrice = isDiscount
+            ? calcDiscountedPrice(discountPercent, basePrice)
+            : basePrice;
+        } else {
+          if (matchedPrice.NormalPrice != null) {
+            finalPrice = parseFloat(matchedPrice.NormalPrice);
+            showSize = "Price";
+          } else {
+            const firstAvailableSize = Object.keys(sizePrices).find(
+              (sz) => sizePrices[sz] !== null && sizePrices[sz] !== undefined
+            );
+            if (firstAvailableSize) {
+              showSize = firstAvailableSize;
+              basePrice = sizePrices[firstAvailableSize];
+
+              finalPrice = isDiscount
+                ? calcDiscountedPrice(discountPercent, basePrice)
+                : basePrice;
+            }
           }
         }
-      }
 
-      return {
-        ...product,
-        price: finalPrice,
-        showSize,
-        isDiscount,
-        discountPercent,
-        basePrice,
-      };
-    })
-    .filter(Boolean);
+        return {
+          ...product,
+          price: finalPrice,
+          showSize,
+          isDiscount,
+          discountPercent,
+          basePrice,
+        };
+      })
+      .filter(Boolean);
+  }, [products, prices, size]);
 
   return (
     <div>
@@ -142,7 +141,7 @@ const ProductList = ({ filters }) => {
             />
             <div className={styles.stack}>
               <button className={styles.button}>
-                <Heart />
+                <Heart onClick={() => addToWishlist(product)} />
                 <span className={styles.tooltip}>Like</span>
               </button>
               <button className={`${styles.button} ${styles.active}`}>
