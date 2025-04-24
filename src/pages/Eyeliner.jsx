@@ -5,7 +5,7 @@ import FilterSidebar from "../shared/Filter/FilterCard";
 const Eyeliner = () => {
   return (
     <div>
-      <EyelinerComponent />
+      <EyelinerComponent name="Eyeliner" />
       <FilterSidebar />
     </div>
   );

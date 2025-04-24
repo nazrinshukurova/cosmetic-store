@@ -1,0 +1,71 @@
+.container {
+  padding: 20px;
+  max-width: 80%;
+  font-family: sans-serif;
+  border: 1px solid #ddd;
+  max-height: 500px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.totalSection {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.link {
+  color: #4a5c3e;
+  text-decoration: underline;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.promoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  flex: 1;
+}
+
+.addButton {
+  background-color: #4a5c3e;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.offers {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.promoHighlight {
+  color: #4a5c3e;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.promoText {
+  color: #f58220;
+}
+
+.checkoutButton {
+  width: 100%;
+  background-color: #4a5c3e;
+  color: white;
+  padding: 15px;
+  font-size: 16px;
+  border: none;
+  margin-top: 20px;
+  cursor: pointer;
+}

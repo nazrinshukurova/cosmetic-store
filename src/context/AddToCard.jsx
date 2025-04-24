@@ -52,6 +52,11 @@ export const CartProvider = ({ children }) => {
     0
   );
 
+  const shippingCost =
+    totalPrice > 500
+      ? 0
+      : cartItems.reduce((total, item) => total + item.quantity * 2, 0);
+
   return (
     <CartContext.Provider
       value={{
@@ -62,6 +67,7 @@ export const CartProvider = ({ children }) => {
         countOfItems,
         totalPrice,
         updateQuantity,
+        shippingCost,
       }}
     >
       {children}

@@ -3,6 +3,7 @@ import { useCart } from "../../context/AddToCard";
 import styles from "./Basket.module.css";
 import close from "../../assets/close.svg";
 import { Trash2 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const BasketComponent = ({ onClose }) => {
   const {
@@ -11,6 +12,7 @@ const BasketComponent = ({ onClose }) => {
     updateQuantity,
     removeFromCart,
     totalPrice,
+    shippingCost,
   } = useCart();
 
   return (
@@ -89,8 +91,17 @@ const BasketComponent = ({ onClose }) => {
             <div className={styles.totalPrice}>${totalPrice.toFixed(2)}</div>
           </div>
           <div className={styles.information_2}>
-            <div>Taxes</div>
-            <div className={styles.taxes}>$0.00</div>
+            <div>Shipping:</div>
+            <div className={styles.taxes}>${shippingCost.toFixed(2)}</div>
+          </div>
+          <div className={styles.information_3}>
+            <Link style={{ textDecoration: "none" }} to="/cart">
+              <div className={styles.view_cart}>View Cart</div>
+            </Link>
+            <Link style={{ textDecoration: "none" }} to="/address">
+              {" "}
+              <div className={styles.checkout}>Checkout</div>
+            </Link>{" "}
           </div>
         </div>
       </div>

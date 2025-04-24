@@ -1,0 +1,53 @@
+.full_form {
+  width: 50%;
+}
+.form {
+  padding: 10px 37px;
+  margin-bottom: -1px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid #e5e5e5;
+  font-family: Arial, sans-serif;
+}
+
+.address_label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  color: #333;
+}
+
+.address_input,
+.address_select {
+  padding: 8px;
+  max-width: 300px;
+  border: 1px solid #e5e5e5;
+  outline: none;
+}
+
+.checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.continue {
+  width: 120px;
+  height: 40px;
+  background-color: #5c6745;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.continue:hover {
+  background-color: #4a5536;
+}
+
+.personal_information {
+  text-transform: capitalize;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Mulish", sans-serif;
+}

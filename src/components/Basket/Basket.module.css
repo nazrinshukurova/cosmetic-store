@@ -39,7 +39,9 @@
 .wishlist_container {
   margin-top: 40px;
   overflow-y: auto;
-  max-height: calc(100vh - 200px); /* Adjust the height to allow space for the bottom information */
+  max-height: calc(
+    100vh - 240px
+  ); /* Adjust the height to allow space for the bottom information */
 }
 
 .wishlist {
@@ -65,16 +67,12 @@
   font-family: "Mulish", sans-serif;
   color: #222222;
   margin-bottom: 20px;
-
 }
 
 .prices_box {
   margin-top: 5px;
 }
 
-.price {
-  color: green;
-}
 
 .out_of_stock {
   color: red;
@@ -144,11 +142,48 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: auto; /* Push it to the bottom */
+  margin-top: auto;
 }
 
 .taxes {
   color: #636b57;
   font-weight: 700;
   font-family: "Mulish", sans-serif;
+}
+
+.information_3 {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 15px;
+}
+
+.view_cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #222;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 26px;
+  width: 150px;
+  text-align: center;
+  cursor: pointer;
+  height: 40px;
+}
+
+.checkout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 26px;
+  cursor: pointer;
+  background-color: #636b57;
+  color: #ffff;
+  width: 150px;
+  height: 40px;
 }
