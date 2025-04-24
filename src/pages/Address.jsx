@@ -9,7 +9,6 @@ const Address = () => {
     <div>
       <EyelinerComponent name="Address" />
       <div className={globalStyles.address_and_checkout}>
-        {" "}
         <AddressForm />
         <CheckoutSummary/>
       </div>

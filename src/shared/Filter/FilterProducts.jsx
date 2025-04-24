@@ -61,7 +61,7 @@ const FilterSideBar = ({ onFilterChange }) => {
       {renderCheckboxList(
         "Availability",
         ["Available", "Not Available"],
-        [17, 1],
+        [13, 5],
         setSelectedAvailability,
         selectedAvailability,
         true

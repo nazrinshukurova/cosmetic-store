@@ -1,0 +1,56 @@
+.register_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  border: 1px solid #e5e5e5;
+  margin: 40px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+  padding: 30px;
+}
+
+.register_input {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.register_checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.save {
+  padding: 10px;
+  background-color: #636b57;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.register_row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.error {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: -8px;
+  margin-bottom: 5px;
+}
+
+.have_login {
+  font-family: "Mulish", sans-serif;
+  font-size: 15px;
+  color: #666;
+  line-height: 26px;
+  letter-spacing: 0.5px;
+}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./Checkout.module.css";
 import { useCart } from "../../context/AddToCard";
 import { supabase } from "../../client";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const CheckoutSummary = () => {
   const [promoVisible, setPromoVisible] = useState(false);
@@ -63,64 +63,67 @@ const CheckoutSummary = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.row}>
-        <span>{countOfItems} items</span>
-        <span>${totalPrice.toFixed(2)}</span>
-      </div>
-      <div className={styles.row}>
-        <span>Shipping</span>
-        <span>${shippingCost.toFixed(2)}</span>
-      </div>
-
-      <div className={styles.totalSection}>
+      <div className={styles.sub_container}>
+        {" "}
         <div className={styles.row}>
-          <span>Total (tax excl.)</span>
-          <span>${discountedTotal.toFixed(2)}</span>
+          <span>{countOfItems} items</span>
+          <span>${totalPrice.toFixed(2)}</span>
         </div>
         <div className={styles.row}>
-          <span>Total (tax incl.)</span>
-          <span>${finalTotal.toFixed(2)}</span>
+          <span>Shipping</span>
+          <span>${shippingCost.toFixed(2)}</span>
         </div>
-        <div className={styles.row}>
-          <span>Discount:</span>
-          <span>-${discount.toFixed(2)}</span>
+        <div className={styles.totalSection}>
+          <div className={styles.row}>
+            <span>Total (tax excl.)</span>
+            <span>${discountedTotal.toFixed(2)}</span>
+          </div>
+          <div className={styles.row}>
+            <span>Total (tax incl.)</span>
+            <span>${finalTotal.toFixed(2)}</span>
+          </div>
+          <div className={styles.row}>
+            <span>Discount:</span>
+            <span>-${discount.toFixed(2)}</span>
+          </div>
         </div>
-      </div>
-
-      {!promoVisible && (
-        <p className={styles.link} onClick={() => setPromoVisible(true)}>
-          Have a promo code?
-        </p>
-      )}
-
-      {promoVisible && (
-        <div className={styles.promoSection}>
-          <input
-            type="text"
-            value={promoCode}
-            onChange={(e) => setPromoCode(e.target.value)}
-            placeholder="Promo code"
-            className={styles.input}
-            disabled={isPromoApplied} // Disable input after apply
-          />
-          <button onClick={applyPromoCode} className={styles.addButton}>
-            {isPromoApplied ? "REMOVE" : "ADD"}
-          </button>
-          <p className={styles.link} onClick={() => setPromoVisible(false)}>
-            Close
+        {!promoVisible && (
+          <p className={styles.link} onClick={() => setPromoVisible(true)}>
+            Have a promo code?
           </p>
-          {promoError && <p className={styles.error}>{promoError}</p>}
-        </div>
-      )}
-
-      <p className={styles.offers}>
-        Take advantage of our exclusive offers:
-        <span className={styles.promoHighlight}> PROMO </span> -{" "}
-        <span className={styles.promoText}>Promo Code</span>
-      </p>
-      <Link style={{ textDecoration: "none" }} to="/address">
-        <button className={styles.checkoutButton}>PROCEED TO CHECKOUT</button>
-      </Link>
+        )}
+        {promoVisible && (
+          <div className={styles.promoSection}>
+            <input
+              type="text"
+              value={promoCode}
+              onChange={(e) => setPromoCode(e.target.value)}
+              placeholder="Promo code"
+              className={styles.input}
+              disabled={isPromoApplied} // Disable input after apply
+            />
+            <button onClick={applyPromoCode} className={styles.addButton}>
+              {isPromoApplied ? "REMOVE" : "ADD"}
+            </button>
+            <p className={styles.link} onClick={() => setPromoVisible(false)}>
+              Close
+            </p>
+            {promoError && <p className={styles.error}>{promoError}</p>}
+          </div>
+        )}
+        <p className={styles.offers}>
+          Take advantage of our exclusive offers:
+          <span className={styles.promoHighlight}> PROMO </span> -{" "}
+          <span className={styles.promoText}>Promo Code</span>
+        </p>
+        {location.pathname !== "/address" && (
+          <Link style={{ textDecoration: "none" }} to="/address">
+            <button className={styles.checkoutButton}>
+              PROCEED TO CHECKOUT
+            </button>
+          </Link>
+        )}
+      </div>
     </div>
   );
 };

@@ -1,9 +1,16 @@
 .container {
-  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   max-width: 80%;
   font-family: sans-serif;
   border: 1px solid #ddd;
-  max-height: 500px;
+  height: 470px;
+}
+
+.sub_container {
+  padding: 20px;
+  height: 450px;
 }
 
 .row {
@@ -28,6 +35,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  min-width: 30%;
 }
 
 .input {

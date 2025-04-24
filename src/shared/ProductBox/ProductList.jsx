@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { supabase } from "../../client";
 import styles from "./ProductBox.module.css";
-import { Heart, Repeat, Maximize2, ExternalLink, X } from "lucide-react";
+import { Heart, Repeat, Maximize2, ExternalLink } from "lucide-react";
 import { useWishlist } from "../../context/WishlistContext";
 import { useCart } from "../../context/AddToCard";
+import { useAuth } from "../../context/AuthContext";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProductList = ({ filters }) => {
   const [products, setProducts] = useState([]);
@@ -13,6 +16,7 @@ const ProductList = ({ filters }) => {
 
   const { addToWishlist } = useWishlist();
   const { addToCart } = useCart();
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchFilteredProducts = async () => {
@@ -134,18 +138,32 @@ const ProductList = ({ filters }) => {
     setExpandedImage(null);
   };
 
+  const handleAddToWishlist = (product) => {
+    if (!user) {
+      toast.error("Please log in to add to wishlist.");
+      return;
+    }
+    addToWishlist(product);
+  };
+
+  const handleAddToCart = (product) => {
+    if (!user) {
+      toast.error("Please log in to add to cart.");
+      return;
+    }
+    addToCart(product);
+  };
+
   return (
     <div>
+      <ToastContainer />
       {expandedImage && (
         <div className={styles.overlay} onClick={closeExpanded}>
           <div
             className={styles.expandedContainer}
             onClick={(e) => e.stopPropagation()}
-
-            //&Deep Note:Əgər bu olmasa, istifadəçi bu konteynerin içini klikləyəndə modalın overlay-inə də klik gedər və modal bağlanardı.Bu funksiya klik hadisəsinin daha yuxarıdakı parent elementlərə getməsinin qarşısını alır.
           >
             <button className={styles.closeButton} onClick={closeExpanded}>
-              {/* <X size={24} /> */}
               <span>×</span>
             </button>
             <img
@@ -172,7 +190,7 @@ const ProductList = ({ filters }) => {
             <div className={styles.stack}>
               <button
                 className={styles.button}
-                onClick={() => addToWishlist(product)}
+                onClick={() => handleAddToWishlist(product)}
               >
                 <Heart />
                 <span className={styles.tooltip}>Like</span>
@@ -215,11 +233,11 @@ const ProductList = ({ filters }) => {
             </h3>
             <button
               className={styles.addToCart}
-              onClick={() => addToCart(product)}
+              onClick={() => handleAddToCart(product)}
               disabled={!product.isAvailable}
             >
               Add to cart
-            </button>{" "}
+            </button>
           </div>
         ))}
       </div>

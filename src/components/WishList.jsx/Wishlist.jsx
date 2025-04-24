@@ -3,10 +3,23 @@ import { useWishlist } from "../../context/WishlistContext";
 import styles from "./Wishlist.module.css";
 import { Trash } from "lucide-react";
 import { useCart } from "../../context/AddToCard";
+import { useAuth } from "../../context/AuthContext";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const WishlistComponent = () => {
   const { wishlist, removeFromWishlist } = useWishlist();
-  const { addToCart } = useCart(); 
+  const { addToCart } = useCart();
+  const { user } = useAuth();
+
+  const handleAddToCart = (item) => {
+    if (!user) {
+      toast.error("Please log in to add items to your cart.");
+      return;
+    }
+    addToCart(item);
+    toast.success("Item added to your cart!");
+  };
 
   return (
     <div className={styles.full_container}>
@@ -47,7 +60,7 @@ const WishlistComponent = () => {
               <div className={styles.addToCartBox}>
                 <button
                   className={styles.addToCart}
-                  onClick={() => addToCart(item)}
+                  onClick={() => handleAddToCart(item)}
                   disabled={!item.isAvailable}
                 >
                   Add to cart
@@ -59,6 +72,8 @@ const WishlistComponent = () => {
           <p className={styles.emptyMessage}>Your wishlist is empty.</p>
         )}
       </div>
+
+      <ToastContainer position="top-center" autoClose={2000} />
     </div>
   );
 };
