@@ -7,6 +7,7 @@ import { useCart } from "../../context/AddToCard";
 import { useAuth } from "../../context/AuthContext";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 
 const ProductList = ({ filters }) => {
   const [products, setProducts] = useState([]);
@@ -164,7 +165,7 @@ const ProductList = ({ filters }) => {
             onClick={(e) => e.stopPropagation()}
           >
             <button className={styles.closeButton} onClick={closeExpanded}>
-              <span>×</span>
+              <span className={styles.close_box}>X</span>
             </button>
             <img
               src={expandedImage}
@@ -206,10 +207,12 @@ const ProductList = ({ filters }) => {
                 <Maximize2 />
                 <span className={styles.tooltip}>Expand</span>
               </button>
-              <button className={styles.button}>
-                <ExternalLink />
-                <span className={styles.tooltip}>Open</span>
-              </button>
+              <Link to={`/details/${product.name}/${product.id}`}>
+                <button className={styles.button}>
+                  <ExternalLink />
+                  <span className={styles.tooltip}>Open</span>
+                </button>
+              </Link>
             </div>
             <div className={styles.brand_title}>{product.brand}</div>
             <h3 className={styles.name}>

@@ -100,7 +100,7 @@ const CheckoutSummary = () => {
               onChange={(e) => setPromoCode(e.target.value)}
               placeholder="Promo code"
               className={styles.input}
-              disabled={isPromoApplied} // Disable input after apply
+              disabled={isPromoApplied} 
             />
             <button onClick={applyPromoCode} className={styles.addButton}>
               {isPromoApplied ? "REMOVE" : "ADD"}

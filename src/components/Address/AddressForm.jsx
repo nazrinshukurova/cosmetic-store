@@ -20,7 +20,6 @@ const AddressForm = () => {
 
   const states = ["California", "New York", "Texas", "Florida", "Illinois"];
 
-  // Load data from localStorage when component mounts
   useEffect(() => {
     const savedData = localStorage.getItem("addressFormData");
     if (savedData) {

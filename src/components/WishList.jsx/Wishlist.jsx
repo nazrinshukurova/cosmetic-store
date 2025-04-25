@@ -18,7 +18,6 @@ const WishlistComponent = () => {
       return;
     }
     addToCart(item);
-    toast.success("Item added to your cart!");
   };
 
   return (

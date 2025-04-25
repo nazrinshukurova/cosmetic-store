@@ -119,8 +119,8 @@
 }
 
 button:disabled {
-  background-color: #d3d3d3; /* Arxa fon rəngi */
-  color: #888; /* Mətnin rəngi */
-  border: 1px solid #ccc; /* Sərhədin rəngi */
-  cursor: not-allowed; /* Mouse kursoru */
+  background-color: #d3d3d3; 
+  color: #888; 
+  border: 1px solid #ccc; 
+  cursor: not-allowed;
 }

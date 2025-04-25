@@ -10,6 +10,7 @@ import Registration from "./pages/Registration";
 import Login from "./pages/Login";
 import { WishlistProvider } from "./context/WishlistContext";
 import { CartProvider } from "./context/AddToCard";
+import DetailsPage from "./pages/DetailsPage";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
               <Route path="/address" element={<Address />} />
               <Route path="/registration" element={<Registration />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/details/:name/:id" element={<DetailsPage />} />
             </Routes>
           </BrowserRouter>
         </WishlistProvider>

@@ -48,12 +48,12 @@ export const CartProvider = ({ children }) => {
   );
 
   const totalPrice = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity, // 🟢 Dəyişiklik burada
+    (total, item) => total + item.price * item.quantity, 
     0
   );
 
   const shippingCost =
-    totalPrice > 500
+    totalPrice > 800
       ? 0
       : cartItems.reduce((total, item) => total + item.quantity * 2, 0);
 
