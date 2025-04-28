@@ -68,7 +68,6 @@ const ProductDetails = () => {
       XXL: priceInfo.xxlPrice ? parseFloat(priceInfo.xxlPrice) : null,
     };
 
-    // Get the price for the selected size
     const basePrice = sizePrices[selectedSize];
 
     if (priceInfo.isDiscount) {
@@ -148,11 +147,11 @@ const ProductDetails = () => {
 
         <div className={styles.prices}>
           <span>
-            ${displayedPrice.finalPrice.toFixed(2)}{" "}
+            {/* ${displayedPrice.finalPrice.toFixed(2)}{" "} BURA BAXACAM */}
             {displayedPrice.discountPercent > 0 && (
               <span className={styles.discounted_price}>
                 {" "}
-                ${displayedPrice.basePrice} {/* Bura baxilmalidi */}
+                ${displayedPrice.basePrice} 
               </span>
             )}
           </span>

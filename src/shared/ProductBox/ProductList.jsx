@@ -13,50 +13,55 @@ const ProductList = ({ filters }) => {
   const [products, setProducts] = useState([]);
   const [prices, setPrices] = useState([]);
   const [expandedImage, setExpandedImage] = useState(null);
-  const { availability, condition, brand, size } = filters;
+
+  const { availability, condition, brand, size } = filters || {}; // fallback boş gələndə
 
   const { addToWishlist } = useWishlist();
   const { addToCart } = useCart();
   const { user } = useAuth();
 
+  const fetchFilteredProducts = async () => {
+    let query = supabase.from("AllProducts").select("*");
+
+    if (availability && availability !== "All") {
+      query = query.eq("isAvailable", availability === "Available");
+    }
+
+    if (condition && condition.length > 0) {
+      query = query.in("condition", condition);
+    }
+
+    if (brand && brand.length > 0) {
+      query = query.in("brand", brand);
+    }
+
+    const { data: productData, error: productError } = await query;
+    if (productError) {
+      console.error("Error fetching products:", productError.message);
+      return;
+    }
+
+    setProducts(productData || []);
+    console.log("Fetched products:", productData); 
+
+    const { data: pricesData, error: priceError } = await supabase
+      .from("PricesForSizes")
+      .select("*");
+
+    if (priceError) {
+      console.error("Error fetching prices:", priceError.message);
+      return;
+    }
+
+    setPrices(pricesData || []);
+    console.log("Fetched prices:", pricesData);
+  };
+
+
+
   useEffect(() => {
-    const fetchFilteredProducts = async () => {
-      let query = supabase.from("AllProducts").select("*");
-
-      if (availability && availability !== "All") {
-        query = query.eq("isAvailable", availability === "Available");
-      }
-
-      if (condition.length) {
-        query = query.in("condition", condition);
-      }
-
-      if (brand.length) {
-        query = query.in("brand", brand);
-      }
-
-      const { data: productData, error: productError } = await query;
-      if (productError) {
-        console.error("Error fetching products:", productError.message);
-        return;
-      }
-
-      setProducts(productData || []);
-
-      const { data: pricesData, error: priceError } = await supabase
-        .from("PricesForSizes")
-        .select("*");
-
-      if (priceError) {
-        console.error("Error fetching prices:", priceError.message);
-        return;
-      }
-
-      setPrices(pricesData || []);
-    };
-
     fetchFilteredProducts();
-  }, [filters]);
+  }, [availability, condition, brand]);
 
   const calcDiscountedPrice = (discount, value) => {
     const numericValue = parseFloat(value);
@@ -89,7 +94,7 @@ const ProductList = ({ filters }) => {
         let showSize = "";
         let basePrice = "";
 
-        if (size.length) {
+        if (size && size.length > 0) {
           const selectedSizes = size.filter(
             (sz) => sizePrices[sz] !== null && sizePrices[sz] !== undefined
           );
@@ -155,9 +160,12 @@ const ProductList = ({ filters }) => {
     addToCart(product);
   };
 
+  console.log(products);
+
   return (
     <div>
       <ToastContainer />
+
       {expandedImage && (
         <div className={styles.overlay} onClick={closeExpanded}>
           <div
@@ -175,74 +183,79 @@ const ProductList = ({ filters }) => {
           </div>
         </div>
       )}
+
       <div className={styles.filtered_items}>
-        {mergedProducts.map((product) => (
-          <div key={product.id} className={styles.item}>
-            {product.isDiscount && (
-              <div className={styles.discount_tag}>
-                -%{product.discountPercent}
-              </div>
-            )}
-            <img
-              className={styles.item_image}
-              src={product.images}
-              alt={product.name}
-            />
-            <div className={styles.stack}>
-              <button
-                className={styles.button}
-                onClick={() => handleAddToWishlist(product)}
-              >
-                <Heart />
-                <span className={styles.tooltip}>Like</span>
-              </button>
-              <button className={`${styles.button} ${styles.active}`}>
-                <Repeat />
-                <span className={styles.tooltip}>Repeat</span>
-              </button>
-              <button
-                className={styles.button}
-                onClick={() => handleExpand(product.images)}
-              >
-                <Maximize2 />
-                <span className={styles.tooltip}>Expand</span>
-              </button>
-              <Link to={`/details/${product.name}/${product.id}`}>
-                <button className={styles.button}>
-                  <ExternalLink />
-                  <span className={styles.tooltip}>Open</span>
+        {mergedProducts.length === 0 ? (
+          <p>No products found.</p>
+        ) : (
+          mergedProducts.map((product) => (
+            <div key={product.id} className={styles.item}>
+              {product.isDiscount && (
+                <div className={styles.discount_tag}>
+                  -%{product.discountPercent}
+                </div>
+              )}
+              <img
+                className={styles.item_image}
+                src={product.images}
+                alt={product.name}
+              />
+              <div className={styles.stack}>
+                <button
+                  className={styles.button}
+                  onClick={() => handleAddToWishlist(product)}
+                >
+                  <Heart />
+                  <span className={styles.tooltip}>Like</span>
                 </button>
-              </Link>
-            </div>
-            <div className={styles.brand_title}>{product.brand}</div>
-            <h3 className={styles.name}>
-              {product.name}
-              <div className={styles.prices_box}>
-                {product.isDiscount &&
-                  typeof product.basePrice === "number" && (
-                    <span className={styles.basePrice}>
-                      ${product.basePrice.toFixed(1)}
-                    </span>
-                  )}
-                <span className={styles.price}>
-                  {typeof product.price === "number"
-                    ? ` $${product.price.toFixed(1)}`
-                    : "Price: N/A"}
-                </span>
-                {!product.isAvailable && (
-                  <span className={styles.out_of_stock}>Out of stock</span>
-                )}
+                <button className={`${styles.button} ${styles.active}`}>
+                  <Repeat />
+                  <span className={styles.tooltip}>Repeat</span>
+                </button>
+                <button
+                  className={styles.button}
+                  onClick={() => handleExpand(product.images)}
+                >
+                  <Maximize2 />
+                  <span className={styles.tooltip}>Expand</span>
+                </button>
+                <Link to={`/details/${product.name}/${product.id}`}>
+                  <button className={styles.button}>
+                    <ExternalLink />
+                    <span className={styles.tooltip}>Open</span>
+                  </button>
+                </Link>
               </div>
-            </h3>
-            <button
-              className={styles.addToCart}
-              onClick={() => handleAddToCart(product)}
-              disabled={!product.isAvailable}
-            >
-              Add to cart
-            </button>
-          </div>
-        ))}
+              <div className={styles.brand_title}>{product.brand}</div>
+              <h3 className={styles.name}>
+                {product.name}
+                <div className={styles.prices_box}>
+                  {product.isDiscount &&
+                    typeof product.basePrice === "number" && (
+                      <span className={styles.basePrice}>
+                        ${product.basePrice.toFixed(1)}
+                      </span>
+                    )}
+                  <span className={styles.price}>
+                    {typeof product.price === "number"
+                      ? ` $${product.price.toFixed(1)}`
+                      : "Price: N/A"}
+                  </span>
+                  {!product.isAvailable && (
+                    <span className={styles.out_of_stock}>Out of stock</span>
+                  )}
+                </div>
+              </h3>
+              <button
+                className={styles.addToCart}
+                onClick={() => handleAddToCart(product)}
+                disabled={!product.isAvailable}
+              >
+                Add to cart
+              </button>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

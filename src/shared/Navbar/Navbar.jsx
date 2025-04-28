@@ -54,7 +54,17 @@ const Navbar = () => {
                 </li>
                 <li className={styles.link}>Stain Lip</li>
                 <li className={styles.link}>ALL BRANDS</li>
-                <li className={styles.link}>MORE</li>
+                {user?.email === "admin@gmail.com" && (
+                  <li className={styles.link}>
+                    <Link
+                      style={{ textDecoration: "none", color: "#222" }}
+                      to="/dashboard"
+                      className={styles.navlink}
+                    >
+                      Dashboard
+                    </Link>
+                  </li>
+                )}
               </ul>
             </div>
             <div className={styles.header_right}>
@@ -75,7 +85,6 @@ const Navbar = () => {
                     <div className={styles.dropdownMenu}>
                       <p className={styles.username}>
                         {` ${user.name} ${user.surname}`}
-                        {}
                       </p>
                       <button className={styles.logoutButton} onClick={logout}>
                         Logout

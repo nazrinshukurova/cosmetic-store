@@ -1,0 +1,89 @@
+.dashboard {
+  padding: 2rem;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.search {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  width: 300px;
+  outline: none;
+}
+
+.form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.form input {
+  padding: 0.5rem;
+}
+
+.addButton{
+    padding: 0.4rem 0.8rem;
+  margin-right: 0.3rem;
+  border: none;
+  width: 120px;
+  height: 40px;
+  cursor: pointer;
+}
+
+
+.saveButton,
+.cancelButton,
+.editButton,
+.deleteButton {
+  padding: 0.4rem 0.8rem;
+  margin-right: 0.3rem;
+  border: none;
+  width: 80px;
+  height: 40px;
+  cursor: pointer;
+  outline: none;
+}
+
+.addButton {
+  background-color: #4e5440;
+  color: white;
+}
+
+.editButton {
+  background-color: #d9d5c0;
+  color: white;
+}
+
+.saveButton {
+  background-color: #d9d5c0;
+  color: white;
+}
+
+.cancelButton {
+  background-color: #4e5440;
+  color: white;
+}
+
+.deleteButton {
+  background-color: #4e5440;
+  color: white;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+}
+
+.imageBox {
+  width: 200px;
+  overflow-y: scroll;
+}

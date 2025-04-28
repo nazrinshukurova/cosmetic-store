@@ -1,0 +1,101 @@
+.dashboard {
+  padding: 2rem;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.search {
+  padding: 0.5rem;
+  width: 300px;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #636b57;
+  color: #ededee;
+}
+
+.loading {
+  text-align: center;
+  padding-top: 100px;
+  font-size: 1.5rem;
+  color: #555;
+}
+
+.addUserForm {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.addButton,
+.editButton,
+.deleteButton,
+.saveButton,
+.cancelButton {
+  margin-right: 5px;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  width: 120px;
+  height: 40px;
+}
+
+.addButton {
+  background-color: #a3b18a;
+  color: white;
+}
+
+.editButton {
+  background-color: #d9d5c0;
+  color: black;
+}
+
+.deleteButton {
+  background-color: #4e5440;
+  color: white;
+}
+
+.saveButton {
+  background-color: #007bff;
+  color: white;
+}
+
+.cancelButton {
+  background-color: #6c757d;
+  color: white;
+}
+
+.addUserInput {
+  max-width: 300px;
+  height: 30px;
+  outline: none;
+}
+
+.addUserInput::placeholder {
+  font-size: 14px;
+  padding: 5px;
+}

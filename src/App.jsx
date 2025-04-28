@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import { WishlistProvider } from "./context/WishlistContext";
 import { CartProvider } from "./context/AddToCard";
 import DetailsPage from "./pages/DetailsPage";
+import Dashboard from "./pages/Dashboard";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
               <Route path="/registration" element={<Registration />} />
               <Route path="/login" element={<Login />} />
               <Route path="/details/:name/:id" element={<DetailsPage />} />
+              <Route path="/dashboard" element={<Dashboard />} />
             </Routes>
           </BrowserRouter>
         </WishlistProvider>

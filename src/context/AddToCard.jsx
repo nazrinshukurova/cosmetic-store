@@ -48,7 +48,7 @@ export const CartProvider = ({ children }) => {
   );
 
   const totalPrice = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity, 
+    (total, item) => total + item.price * item.quantity,
     0
   );
 
@@ -65,7 +65,7 @@ export const CartProvider = ({ children }) => {
         removeFromCart,
         clearCart,
         countOfItems,
-        totalPrice,
+        totalPrice: Number(totalPrice),
         updateQuantity,
         shippingCost,
       }}
