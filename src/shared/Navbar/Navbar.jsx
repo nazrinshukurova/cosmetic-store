@@ -74,7 +74,7 @@ const Navbar = () => {
                   {isDropdownVisible && (
                     <div className={styles.dropdownMenu}>
                       <p className={styles.username}>
-                        {` ${user.firstName} ${user.lastName}`}
+                        {` ${user.name} ${user.surname}`}
                         {}
                       </p>
                       <button className={styles.logoutButton} onClick={logout}>

@@ -5,10 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAuth } from "../../context/AuthContext";
+import { supabase } from "../../client";
 
 const LoginForm = () => {
-  const { login } = useAuth(); 
-  const navigate = useNavigate(); 
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -25,30 +26,37 @@ const LoginForm = () => {
     setFormData((prev) => ({ ...prev, showPassword: !prev.showPassword }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const user = users.find((u) => u.email === formData.email);
+    // Supabase-dan user axtar
+    const { data, error } = await supabase
+      .from("Users")
+      .select("*")
+      .eq("email", formData.email)
+      .single(); // yalnız bir user gözləyirik
 
-    if (!user) {
+    if (error || !data) {
       toast.error("User does not exist.");
       return;
     }
 
-    if (user.password !== formData.password) {
+    if (data.password !== formData.password) {
       toast.error("Incorrect password.");
       return;
     }
 
-    login(user); 
+    login(data); // AuthContext-ə göndər
 
     setFormData({
       email: "",
       password: "",
+      showPassword: false,
     });
 
-    toast.success(`Welcome, ${user.firstName || "User"}!`);
+    toast.success(`Welcome, ${data.name || "User"}!`);
+
+    navigate("/"); // login-dən sonra yönləndir
   };
 
   return (

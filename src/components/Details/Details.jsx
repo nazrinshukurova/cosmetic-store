@@ -145,13 +145,14 @@ const ProductDetails = () => {
             </button>
           ))}
         </div>
+
         <div className={styles.prices}>
           <span>
             ${displayedPrice.finalPrice.toFixed(2)}{" "}
             {displayedPrice.discountPercent > 0 && (
               <span className={styles.discounted_price}>
                 {" "}
-                ${displayedPrice.basePrice.toFixed(2)}
+                ${displayedPrice.basePrice} {/* Bura baxilmalidi */}
               </span>
             )}
           </span>

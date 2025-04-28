@@ -3,6 +3,8 @@ import styles from "./Register.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+import { supabase } from "../../client";
+
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
@@ -63,7 +65,7 @@ const RegisterForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validate()) {
@@ -71,19 +73,39 @@ const RegisterForm = () => {
       return;
     }
 
-    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+    try {
+      // Emailin bazada olub olmadığını yoxla
+      const { data: existingUsers, error: fetchError } = await supabase
+        .from("Users")
+        .select("email")
+        .eq("email", formData.email);
 
-    if (existingUsers.some((user) => user.email === formData.email)) {
-      toast.error("User with this email already exists.");
-      return;
+      if (fetchError) throw fetchError;
+
+      if (existingUsers.length > 0) {
+        toast.error("User with this email already exists.");
+        return;
+      }
+
+      // Yeni istifadəçini əlavə et
+      const { data, error } = await supabase.from("Users").insert([
+        {
+          name: formData.firstName,
+          surname: formData.lastName,
+          email: formData.email,
+          password: formData.password,
+          date: formData.birthdate,
+        },
+      ]);
+
+      if (error) throw error;
+
+      toast.success("Account created successfully!");
+      resetForm();
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong. Please try again.");
     }
-
-    const updatedUsers = [...existingUsers, formData];
-    localStorage.setItem("users", JSON.stringify(updatedUsers));
-
-    toast.success("Account created successfully!");
-
-    resetForm(); // ✅ Reset form only after success
   };
 
   return (
